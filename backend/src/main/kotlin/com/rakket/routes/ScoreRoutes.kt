@@ -3,6 +3,7 @@ package com.rakket.routes
 import com.rakket.db.*
 import com.rakket.elo.EloCalculator
 import com.rakket.models.ScoreReportRequest
+import com.rakket.tournament.BadgeEngine
 import com.rakket.tournament.ScoreValidator
 import com.rakket.tournament.TournamentEngine
 import io.ktor.http.*
@@ -98,6 +99,12 @@ fun Route.scoreRoutes() {
 
                 // Update ELO ratings
                 EloCalculator.applyMatchResult(request.matchId, player1Id, player2Id, winnerId)
+
+                // Check for badge achievements
+                val loserId = if (winnerId == player1Id) player2Id else player1Id
+                val round = TournamentRounds.select { TournamentRounds.id eq match[Matches.roundId] }.first()
+                val tId = round[TournamentRounds.tournamentId]
+                BadgeEngine.checkMatchBadges(request.matchId, winnerId, loserId, tId)
 
                 logger.info("Score reported for match #${request.matchId}: winner=$winnerId by reporter=$reporterId")
 

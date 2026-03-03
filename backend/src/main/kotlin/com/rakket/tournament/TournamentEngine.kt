@@ -166,6 +166,7 @@ object TournamentEngine {
             if (roundNumber >= totalRounds) {
                 // Tournament is over — finalize
                 finalizeTournament(tournamentId)
+                BadgeEngine.checkTournamentBadges(tournamentId)
             } else {
                 // Generate next round
                 advanceToNextRound(tournamentId, roundNumber + 1)
