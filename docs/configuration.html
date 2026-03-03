@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuration - Rakket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><div class="container"><a href="/" class="logo">Rakket</a><div class="links"><a href="getting-started.html">Getting Started</a><a href="configuration.html">Configuration</a><a href="slack-setup.html">Slack Setup</a><a href="architecture.html">Architecture</a><a href="api-reference.html">API Reference</a></div></div></nav>
+  <main class="container doc-content">
+    <h1>Configuration</h1>
+    <p>All configuration is done via environment variables. Copy <code>.env.example</code> to <code>.env</code> and edit the values.</p>
+
+    <h2>Database</h2>
+    <table>
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>DATABASE_URL</code></td><td><code>jdbc:postgresql://postgres:5432/rakket</code></td><td>PostgreSQL JDBC connection URL</td></tr>
+      <tr><td><code>DATABASE_USER</code></td><td><code>rakket</code></td><td>Database username</td></tr>
+      <tr><td><code>DATABASE_PASSWORD</code></td><td><code>changeme</code></td><td>Database password</td></tr>
+    </table>
+
+    <h2>Slack</h2>
+    <table>
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>SLACK_BOT_TOKEN</code></td><td>—</td><td>Bot User OAuth Token (xoxb-...)</td></tr>
+      <tr><td><code>SLACK_SIGNING_SECRET</code></td><td>—</td><td>Signing secret from Slack app settings</td></tr>
+      <tr><td><code>SLACK_CLIENT_ID</code></td><td>—</td><td>OAuth client ID</td></tr>
+      <tr><td><code>SLACK_CLIENT_SECRET</code></td><td>—</td><td>OAuth client secret</td></tr>
+      <tr><td><code>SLACK_CHANNEL_ID</code></td><td>—</td><td>Channel ID where the bot posts (C...)</td></tr>
+    </table>
+
+    <h2>Application</h2>
+    <table>
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>APP_URL</code></td><td><code>http://localhost:8080</code></td><td>Public URL for OAuth callbacks and links</td></tr>
+      <tr><td><code>TIMEZONE</code></td><td><code>Europe/Paris</code></td><td>Timezone for scheduled tasks</td></tr>
+      <tr><td><code>TOURNAMENT_DAY</code></td><td><code>MONDAY</code></td><td>Day of the week for tournaments</td></tr>
+      <tr><td><code>REGISTRATION_TIME</code></td><td><code>09:00</code></td><td>When the bot posts the registration message</td></tr>
+      <tr><td><code>TOURNAMENT_TIME</code></td><td><code>16:00</code></td><td>When registration closes and brackets are generated</td></tr>
+      <tr><td><code>MATCH_FORMAT</code></td><td><code>BEST_OF_3</code></td><td>Match format: BEST_OF_3, SINGLE_SET_11, SINGLE_SET_21</td></tr>
+    </table>
+  </main>
+</body>
+</html>

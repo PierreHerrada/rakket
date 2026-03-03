@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rakket - Ping Pong Tournament Manager</title>
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --bg-secondary: #1e293b;
+        --text: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border: #334155;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    nav {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    nav .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+    nav .links { display: flex; gap: 24px; }
+    nav .links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    nav .links a:hover { color: var(--primary); }
+
+    .hero {
+      text-align: center;
+      padding: 80px 0 60px;
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
+    .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; }
+    .hero .btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .hero .btn:hover { background: var(--primary-dark); }
+
+    .features {
+      padding: 60px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-secondary); font-size: 0.9rem; }
+
+    .section { padding: 60px 0; }
+    .section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 24px; text-align: center; }
+
+    .docs-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+    .docs-links a {
+      display: block;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: border-color 0.2s;
+    }
+    .docs-links a:hover { border-color: var(--primary); }
+    .docs-links a span { display: block; font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; font-weight: 400; }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--primary); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="logo">Rakket</a>
+      <div class="links">
+        <a href="getting-started.html">Getting Started</a>
+        <a href="configuration.html">Configuration</a>
+        <a href="slack-setup.html">Slack Setup</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="api-reference.html">API Reference</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Rakket</h1>
+        <p>Your office ping pong league, automated. Self-hosted tournament manager with ELO rankings, Swiss brackets, achievements, and a Slack bot.</p>
+        <a href="getting-started.html" class="btn">Get Started</a>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="features">
+        <div class="feature-card">
+          <h3>Swiss-System Tournaments</h3>
+          <p>Fair matchups using the Dutch pairing variant. Automatic bracket generation with rematch avoidance and bye handling.</p>
+        </div>
+        <div class="feature-card">
+          <h3>ELO Rankings</h3>
+          <p>Track skill progression with a proper rating system. K-factor adapts based on player experience level.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Slack Integration</h3>
+          <p>Registration, score reporting, standings, and notifications right in Slack. Socket Mode for easy self-hosting.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Achievements</h3>
+          <p>16+ unlockable badges for milestones: Champion, On Fire, Giant Killer, Comeback Kid, and more.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Player Profiles</h3>
+          <p>Stats, ELO charts, head-to-head records, win streaks, and match history for every player.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Single Docker Image</h3>
+          <p>Ships as one container. Multi-stage build with Kotlin backend, React frontend, and PostgreSQL.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Documentation</h2>
+        <div class="docs-links">
+          <a href="getting-started.html">
+            Getting Started
+            <span>Quick start with Docker Compose in 3 commands</span>
+          </a>
+          <a href="configuration.html">
+            Configuration
+            <span>Environment variables reference</span>
+          </a>
+          <a href="slack-setup.html">
+            Slack Setup
+            <span>Create and configure your Slack app</span>
+          </a>
+          <a href="architecture.html">
+            Architecture
+            <span>System design and tech stack overview</span>
+          </a>
+          <a href="api-reference.html">
+            API Reference
+            <span>REST API endpoints documentation</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Built with Kotlin + React. Licensed under <a href="https://github.com/YOUR_USER/rakket/blob/main/LICENSE">MIT</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>

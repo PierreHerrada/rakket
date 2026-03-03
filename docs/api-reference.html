@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Reference - Rakket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><div class="container"><a href="/" class="logo">Rakket</a><div class="links"><a href="getting-started.html">Getting Started</a><a href="configuration.html">Configuration</a><a href="slack-setup.html">Slack Setup</a><a href="architecture.html">Architecture</a><a href="api-reference.html">API Reference</a></div></div></nav>
+  <main class="container doc-content">
+    <h1>API Reference</h1>
+    <p>All endpoints are prefixed with <code>/api</code>. Authentication is via Slack OAuth session cookie.</p>
+
+    <h2>Health</h2>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>GET</td><td><code>/api/health</code></td><td>Health check</td></tr>
+    </table>
+
+    <h2>Authentication</h2>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>GET</td><td><code>/api/auth/slack</code></td><td>Start Slack OAuth flow</td></tr>
+      <tr><td>GET</td><td><code>/api/auth/callback</code></td><td>OAuth callback</td></tr>
+      <tr><td>GET</td><td><code>/api/auth/me</code></td><td>Current user info</td></tr>
+      <tr><td>POST</td><td><code>/api/auth/logout</code></td><td>Logout</td></tr>
+    </table>
+
+    <h2>Tournaments</h2>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>GET</td><td><code>/api/tournaments</code></td><td>List all tournaments (paginated)</td></tr>
+      <tr><td>GET</td><td><code>/api/tournaments/current</code></td><td>Current active tournament</td></tr>
+      <tr><td>GET</td><td><code>/api/tournaments/:id</code></td><td>Tournament detail with rounds &amp; matches</td></tr>
+      <tr><td>POST</td><td><code>/api/tournaments/:id/score</code></td><td>Report a match score</td></tr>
+    </table>
+
+    <h2>Leaderboard</h2>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>GET</td><td><code>/api/leaderboard?type=elo|points&amp;period=4w|12w|all</code></td><td>Ranked leaderboard</td></tr>
+    </table>
+
+    <h2>Players</h2>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>GET</td><td><code>/api/players</code></td><td>List all players</td></tr>
+      <tr><td>GET</td><td><code>/api/players/:id</code></td><td>Player profile</td></tr>
+      <tr><td>GET</td><td><code>/api/players/:id/stats</code></td><td>Full player stats</td></tr>
+      <tr><td>GET</td><td><code>/api/players/:id/matches</code></td><td>Match history (paginated)</td></tr>
+      <tr><td>GET</td><td><code>/api/players/:id/h2h</code></td><td>Head-to-head records</td></tr>
+      <tr><td>GET</td><td><code>/api/players/:id/badges</code></td><td>Earned badges</td></tr>
+      <tr><td>GET</td><td><code>/api/players/:id/elo-history</code></td><td>ELO rating over time</td></tr>
+    </table>
+
+    <h2>Admin</h2>
+    <p>Requires <code>is_admin = true</code> on the player record.</p>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>POST</td><td><code>/api/admin/tournament/create</code></td><td>Manually create a tournament</td></tr>
+      <tr><td>PUT</td><td><code>/api/admin/match/:id/score</code></td><td>Override a match score</td></tr>
+      <tr><td>PUT</td><td><code>/api/admin/match/:id/dispute</code></td><td>Resolve or reset a disputed match</td></tr>
+      <tr><td>GET</td><td><code>/api/admin/settings</code></td><td>View current app settings</td></tr>
+    </table>
+
+    <h2>Slack</h2>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+      <tr><td>POST</td><td><code>/api/slack/commands</code></td><td>Slack slash command handler</td></tr>
+    </table>
+
+    <h2>Score Report Request Body</h2>
+    <pre><code>{
+  "matchId": 42,
+  "sets": [
+    { "setNumber": 1, "player1Score": 11, "player2Score": 7 },
+    { "setNumber": 2, "player1Score": 9, "player2Score": 11 },
+    { "setNumber": 3, "player1Score": 11, "player2Score": 5 }
+  ]
+}</code></pre>
+  </main>
+</body>
+</html>

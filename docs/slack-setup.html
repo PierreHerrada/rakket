@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slack Setup - Rakket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><div class="container"><a href="/" class="logo">Rakket</a><div class="links"><a href="getting-started.html">Getting Started</a><a href="configuration.html">Configuration</a><a href="slack-setup.html">Slack Setup</a><a href="architecture.html">Architecture</a><a href="api-reference.html">API Reference</a></div></div></nav>
+  <main class="container doc-content">
+    <h1>Slack Setup Guide</h1>
+
+    <h2>1. Create a Slack App</h2>
+    <ol>
+      <li>Go to <a href="https://api.slack.com/apps">api.slack.com/apps</a></li>
+      <li>Click <strong>"Create New App"</strong> &rarr; <strong>"From scratch"</strong></li>
+      <li>Name it <strong>"Rakket"</strong> and select your workspace</li>
+    </ol>
+
+    <h2>2. Enable Socket Mode</h2>
+    <ol>
+      <li>Go to <strong>Socket Mode</strong> in the sidebar</li>
+      <li>Enable Socket Mode</li>
+      <li>Give the app-level token a name (e.g., "rakket-socket") and save it</li>
+    </ol>
+
+    <h2>3. Configure Bot Scopes</h2>
+    <ol>
+      <li>Go to <strong>OAuth &amp; Permissions</strong></li>
+      <li>Under <strong>Bot Token Scopes</strong>, add:
+        <ul>
+          <li><code>chat:write</code> — Post messages</li>
+          <li><code>reactions:read</code> — Read reactions for tournament registration</li>
+          <li><code>commands</code> — Slash commands</li>
+          <li><code>users:read</code> — Read user profiles</li>
+        </ul>
+      </li>
+      <li>Under <strong>User Token Scopes</strong>, add:
+        <ul>
+          <li><code>openid</code> — OAuth login</li>
+          <li><code>profile</code> — User profile info</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>4. Create Slash Command</h2>
+    <ol>
+      <li>Go to <strong>Slash Commands</strong></li>
+      <li>Click <strong>"Create New Command"</strong></li>
+      <li>Command: <code>/rakket</code></li>
+      <li>Request URL: <code>https://your-domain.com/api/slack/commands</code></li>
+      <li>Description: "Ping pong tournament commands"</li>
+      <li>Usage hint: "score @opponent 11-7 9-11 11-5"</li>
+    </ol>
+
+    <h2>5. Configure OAuth Redirect</h2>
+    <ol>
+      <li>Go to <strong>OAuth &amp; Permissions</strong></li>
+      <li>Add redirect URL: <code>https://your-domain.com/api/auth/callback</code></li>
+    </ol>
+
+    <h2>6. Install the App</h2>
+    <ol>
+      <li>Go to <strong>Install App</strong></li>
+      <li>Click <strong>"Install to Workspace"</strong></li>
+      <li>Copy the <strong>Bot User OAuth Token</strong> (starts with <code>xoxb-</code>)</li>
+    </ol>
+
+    <h2>7. Configure Environment Variables</h2>
+    <p>Copy these values to your <code>.env</code> file:</p>
+    <ul>
+      <li><code>SLACK_BOT_TOKEN</code> — Bot User OAuth Token</li>
+      <li><code>SLACK_SIGNING_SECRET</code> — From Basic Information &rarr; App Credentials</li>
+      <li><code>SLACK_CLIENT_ID</code> — From Basic Information &rarr; App Credentials</li>
+      <li><code>SLACK_CLIENT_SECRET</code> — From Basic Information &rarr; App Credentials</li>
+      <li><code>SLACK_CHANNEL_ID</code> — Right-click the channel &rarr; "Copy link" &rarr; extract the ID</li>
+    </ul>
+
+    <h2>8. Invite the Bot</h2>
+    <p>In your Slack channel, type <code>/invite @Rakket</code> to add the bot.</p>
+  </main>
+</body>
+</html>

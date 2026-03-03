@@ -1,0 +1,85 @@
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --bg: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --bg-secondary: #1e293b;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+nav {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+nav .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+nav .links { display: flex; gap: 24px; flex-wrap: wrap; }
+nav .links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+nav .links a:hover { color: var(--primary); }
+
+.doc-content { padding: 48px 24px 80px; max-width: 800px; }
+.doc-content h1 { font-size: 2rem; font-weight: 700; margin-bottom: 24px; }
+.doc-content h2 { font-size: 1.4rem; font-weight: 600; margin-top: 40px; margin-bottom: 16px; }
+.doc-content h3 { font-size: 1.1rem; font-weight: 600; margin-top: 24px; margin-bottom: 8px; }
+.doc-content p { margin-bottom: 16px; color: var(--text-secondary); }
+.doc-content ul, .doc-content ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-secondary); }
+.doc-content li { margin-bottom: 8px; }
+.doc-content a { color: var(--primary); }
+.doc-content code {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.doc-content pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.doc-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+.doc-content th, .doc-content td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.doc-content th {
+  font-weight: 600;
+  background: var(--bg-secondary);
+}

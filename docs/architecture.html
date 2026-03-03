@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture - Rakket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><div class="container"><a href="/" class="logo">Rakket</a><div class="links"><a href="getting-started.html">Getting Started</a><a href="configuration.html">Configuration</a><a href="slack-setup.html">Slack Setup</a><a href="architecture.html">Architecture</a><a href="api-reference.html">API Reference</a></div></div></nav>
+  <main class="container doc-content">
+    <h1>Architecture Overview</h1>
+
+    <h2>Tech Stack</h2>
+    <table>
+      <tr><th>Layer</th><th>Technology</th></tr>
+      <tr><td>Backend</td><td>Kotlin + Ktor (coroutine-based)</td></tr>
+      <tr><td>Frontend</td><td>React (TypeScript) + Tailwind CSS</td></tr>
+      <tr><td>Database</td><td>PostgreSQL</td></tr>
+      <tr><td>ORM</td><td>Jetbrains Exposed</td></tr>
+      <tr><td>Connection Pool</td><td>HikariCP</td></tr>
+      <tr><td>Slack Integration</td><td>Slack Web API via Ktor HTTP client</td></tr>
+      <tr><td>Authentication</td><td>Slack OAuth 2.0 + cookie sessions</td></tr>
+      <tr><td>Build</td><td>Gradle (backend) + Vite (frontend)</td></tr>
+      <tr><td>Packaging</td><td>Multi-stage Dockerfile</td></tr>
+    </table>
+
+    <h2>System Design</h2>
+    <pre>
++------------------+     +------------------+     +------------------+
+|   Slack API      |     |   React SPA      |     |   PostgreSQL     |
+|   (Bot + OAuth)  |     |   (Tailwind CSS)  |     |   (Data Store)   |
++--------+---------+     +--------+---------+     +--------+---------+
+         |                         |                         |
+         v                         v                         |
++--------+-------------------------+-------------------------+
+|                    Kotlin / Ktor Backend                    |
+|                                                             |
+|  +----------+  +-----------+  +----------+  +----------+   |
+|  | Auth     |  | Tournament|  | ELO      |  | Slack    |   |
+|  | Routes   |  | Engine    |  | Calculator|  | Bot      |   |
+|  +----------+  +-----------+  +----------+  +----------+   |
+|  +----------+  +-----------+  +----------+  +----------+   |
+|  | Player   |  | Score     |  | Badge    |  | Scheduler|   |
+|  | Routes   |  | Validator |  | Engine   |  |          |   |
+|  +----------+  +-----------+  +----------+  +----------+   |
++-------------------------------------------------------------+
+    </pre>
+
+    <h2>Key Components</h2>
+
+    <h3>Tournament Engine</h3>
+    <p>Manages the full tournament lifecycle: registration, Swiss-system bracket generation (Dutch variant), round advancement, and finalization with placement calculation.</p>
+
+    <h3>Swiss Pairing Algorithm</h3>
+    <p>Players are sorted by score (wins), then ELO. Pairing proceeds top-down within score groups, avoiding rematches. Odd player counts are handled with byes.</p>
+
+    <h3>ELO Calculator</h3>
+    <p>Standard ELO formula with K-factor: K=32 for new players (&lt;20 matches), K=16 for established players. History is recorded for every rating change.</p>
+
+    <h3>Badge Engine</h3>
+    <p>Checks achievement conditions after each match and tournament completion. Awards badges automatically and prevents duplicates.</p>
+
+    <h3>Scheduler</h3>
+    <p>Coroutine-based scheduler that triggers weekly tournament registration, bracket generation, daily summaries, and weekly recaps based on configured timezone and times.</p>
+
+    <h2>Database Schema</h2>
+    <p>Core tables: <code>players</code>, <code>tournaments</code>, <code>tournament_participants</code>, <code>tournament_rounds</code>, <code>matches</code>, <code>match_sets</code>, <code>elo_history</code>, <code>badges</code>.</p>
+    <p>Migrations are managed with numbered SQL files in <code>db/migrations/</code>, tracked in a <code>schema_version</code> table.</p>
+  </main>
+</body>
+</html>

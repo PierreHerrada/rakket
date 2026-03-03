@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started - Rakket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><div class="container"><a href="/" class="logo">Rakket</a><div class="links"><a href="getting-started.html">Getting Started</a><a href="configuration.html">Configuration</a><a href="slack-setup.html">Slack Setup</a><a href="architecture.html">Architecture</a><a href="api-reference.html">API Reference</a></div></div></nav>
+  <main class="container doc-content">
+    <h1>Getting Started</h1>
+
+    <h2>Prerequisites</h2>
+    <ul>
+      <li><strong>Docker</strong> and <strong>Docker Compose</strong> installed</li>
+      <li>A <strong>Slack workspace</strong> where you have permission to install apps</li>
+    </ul>
+
+    <h2>Quick Start</h2>
+    <pre><code># 1. Clone the repo
+git clone https://github.com/YOUR_USER/rakket.git
+cd rakket
+
+# 2. Configure environment
+cp .env.example .env
+# Edit .env with your Slack credentials
+
+# 3. Start everything
+docker-compose up -d</code></pre>
+
+    <p>The app will be available at <code>http://localhost:8080</code>.</p>
+
+    <h2>First Steps</h2>
+    <ol>
+      <li><strong>Create a Slack app</strong> — Follow the <a href="slack-setup.html">Slack Setup Guide</a>.</li>
+      <li><strong>Log in</strong> — Visit the web UI and authenticate with Slack OAuth.</li>
+      <li><strong>Make yourself admin</strong> — Set <code>is_admin = true</code> for your player in the database.</li>
+      <li><strong>Configure tournament schedule</strong> — Set the day and time in your <code>.env</code> file.</li>
+      <li><strong>Wait for tournament day</strong> — The bot will automatically post a registration message.</li>
+    </ol>
+
+    <h2>Development Setup</h2>
+    <pre><code># Start only the database
+docker-compose up postgres -d
+
+# Backend (requires JDK 21)
+cd backend
+./gradlew run
+
+# Frontend (requires Node.js 20+)
+cd frontend
+npm install
+npm run dev</code></pre>
+
+    <p>The frontend dev server runs on <code>http://localhost:5173</code> and proxies API requests to the backend on port 8080.</p>
+  </main>
+</body>
+</html>
