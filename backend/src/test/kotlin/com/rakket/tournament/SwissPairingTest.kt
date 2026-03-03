@@ -5,7 +5,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class SwissPairingTest {
-
     @Test
     fun `calculateRounds returns correct number of rounds`() {
         assertEquals(0, SwissPairing.calculateRounds(1))
@@ -43,11 +42,12 @@ class SwissPairingTest {
 
     @Test
     fun `generatePairings handles odd number with bye`() {
-        val players = listOf(
-            SwissPlayer(1, score = 1.0, eloRating = 1200),
-            SwissPlayer(2, score = 1.0, eloRating = 1100),
-            SwissPlayer(3, score = 0.0, eloRating = 1000),
-        )
+        val players =
+            listOf(
+                SwissPlayer(1, score = 1.0, eloRating = 1200),
+                SwissPlayer(2, score = 1.0, eloRating = 1100),
+                SwissPlayer(3, score = 0.0, eloRating = 1000),
+            )
         val pairings = SwissPairing.generatePairings(players)
 
         // Should have 2 pairings: one real match and one bye
@@ -58,18 +58,20 @@ class SwissPairingTest {
 
     @Test
     fun `generatePairings avoids rematches`() {
-        val players = listOf(
-            SwissPlayer(1, score = 1.0, eloRating = 1200),
-            SwissPlayer(2, score = 1.0, eloRating = 1100),
-            SwissPlayer(3, score = 0.0, eloRating = 1050),
-            SwissPlayer(4, score = 0.0, eloRating = 1000),
-        )
+        val players =
+            listOf(
+                SwissPlayer(1, score = 1.0, eloRating = 1200),
+                SwissPlayer(2, score = 1.0, eloRating = 1100),
+                SwissPlayer(3, score = 0.0, eloRating = 1050),
+                SwissPlayer(4, score = 0.0, eloRating = 1000),
+            )
 
         // Players 1-2 and 3-4 already played
-        val previousPairings = setOf(
-            SwissPairing.pairingKey(1, 2),
-            SwissPairing.pairingKey(3, 4),
-        )
+        val previousPairings =
+            setOf(
+                SwissPairing.pairingKey(1, 2),
+                SwissPairing.pairingKey(3, 4),
+            )
 
         val pairings = SwissPairing.generatePairings(players, previousPairings)
         assertEquals(2, pairings.size)
@@ -80,7 +82,7 @@ class SwissPairingTest {
                 val key = SwissPairing.pairingKey(p.player1Id, p.player2Id!!)
                 assertTrue(
                     !previousPairings.contains(key),
-                    "Pairing ${p.player1Id} vs ${p.player2Id} is a rematch"
+                    "Pairing ${p.player1Id} vs ${p.player2Id} is a rematch",
                 )
             }
         }

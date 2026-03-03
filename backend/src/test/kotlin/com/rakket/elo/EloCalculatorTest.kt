@@ -6,7 +6,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class EloCalculatorTest {
-
     @Test
     fun `equal ratings produce roughly equal expected scores`() {
         val expected = EloCalculator.expectedScore(1000, 1000)
@@ -38,12 +37,14 @@ class EloCalculatorTest {
 
     @Test
     fun `established players have lower K factor`() {
-        val result = EloCalculator.calculate(
-            1000, 1000,
-            player1Won = true,
-            player1Matches = 30,
-            player2Matches = 30,
-        )
+        val result =
+            EloCalculator.calculate(
+                1000,
+                1000,
+                player1Won = true,
+                player1Matches = 30,
+                player2Matches = 30,
+            )
         // K=16, expected=0.5, actual=1.0 -> change = 16 * 0.5 = 8
         assertEquals(8, result.player1Change)
         assertEquals(-8, result.player2Change)
@@ -69,22 +70,26 @@ class EloCalculatorTest {
 
     @Test
     fun `changes are roughly symmetric for equal K`() {
-        val result = EloCalculator.calculate(
-            1100, 900,
-            player1Won = true,
-            player1Matches = 5,
-            player2Matches = 5,
-        )
+        val result =
+            EloCalculator.calculate(
+                1100,
+                900,
+                player1Won = true,
+                player1Matches = 5,
+                player2Matches = 5,
+            )
         // With same K factor, changes should roughly cancel out
         assertTrue(abs(result.player1Change + result.player2Change) <= 1)
     }
 
     @Test
     fun `rating cannot go below zero in extreme case`() {
-        val result = EloCalculator.calculate(
-            50, 2000,
-            player1Won = false,
-        )
+        val result =
+            EloCalculator.calculate(
+                50,
+                2000,
+                player1Won = false,
+            )
         // Even with a big loss, the change is bounded by K
         assertTrue(result.player1NewRating >= 0 || result.player1Change > -50)
     }
