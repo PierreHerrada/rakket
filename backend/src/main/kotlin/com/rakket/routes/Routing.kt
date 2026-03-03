@@ -25,5 +25,6 @@ fun Application.configureRouting(config: AppConfig) {
         playerRoutes()
         tournamentRoutes()
         scoreRoutes()
+        leaderboardRoutes()
     }
 }
