@@ -28,7 +28,7 @@ export default function Layout({ children, currentPage }: LayoutProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
       <header className="bg-white dark:bg-gray-900 shadow sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <a href="/" className="text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors">
