@@ -5,6 +5,8 @@ import com.rakket.config.configureDatabase
 import com.rakket.config.configureSerialization
 import com.rakket.migrations.MigrationRunner
 import com.rakket.routes.configureRouting
+import com.rakket.slack.Scheduler
+import com.rakket.slack.SlackBot
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -54,6 +56,15 @@ fun Application.module(config: AppConfig) {
     configureDatabase(config)
     MigrationRunner.run(config)
     configureRouting(config)
+
+    // Start Slack bot scheduler
+    val bot = SlackBot(config)
+    val scheduler = Scheduler(config, bot)
+    scheduler.start()
+
+    environment.monitor.subscribe(ApplicationStopped) {
+        scheduler.stop()
+    }
 
     logger.info("Rakket started successfully")
 }

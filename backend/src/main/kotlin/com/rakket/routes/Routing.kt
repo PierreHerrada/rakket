@@ -1,6 +1,7 @@
 package com.rakket.routes
 
 import com.rakket.config.AppConfig
+import com.rakket.slack.slackCommandRoutes
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -27,5 +28,6 @@ fun Application.configureRouting(config: AppConfig) {
         scoreRoutes()
         leaderboardRoutes()
         playerStatsRoutes()
+        slackCommandRoutes(config)
     }
 }
