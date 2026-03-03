@@ -23,5 +23,6 @@ fun Application.configureRouting(config: AppConfig) {
 
         authRoutes(config)
         playerRoutes()
+        tournamentRoutes()
     }
 }
