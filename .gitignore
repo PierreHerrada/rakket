@@ -1,0 +1,25 @@
+# Environment
+.env
+
+# Backend
+backend/build/
+backend/.gradle/
+backend/out/
+*.class
+*.jar
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml

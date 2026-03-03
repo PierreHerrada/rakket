@@ -1,0 +1,11 @@
+# Default owners for everything in the repo
+* @YOUR_USER
+
+# Backend
+/backend/ @YOUR_USER
+
+# Frontend
+/frontend/ @YOUR_USER
+
+# Documentation
+/docs/ @YOUR_USER
