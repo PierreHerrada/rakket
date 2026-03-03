@@ -53,7 +53,7 @@ fun Application.module(config: AppConfig) {
     configureSerialization()
     configureDatabase(config)
     MigrationRunner.run(config)
-    configureRouting()
+    configureRouting(config)
 
     logger.info("Rakket started successfully")
 }
