@@ -4,6 +4,7 @@ import Leaderboard from './pages/Leaderboard'
 import TournamentHistory from './pages/TournamentHistory'
 import TournamentDetail from './pages/TournamentDetail'
 import PlayerProfile from './pages/PlayerProfile'
+import Admin from './pages/Admin'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/tournaments" element={<TournamentHistory />} />
         <Route path="/tournaments/:id" element={<TournamentDetail />} />
         <Route path="/players/:id" element={<PlayerProfile />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   )

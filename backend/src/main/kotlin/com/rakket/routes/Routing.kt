@@ -29,5 +29,6 @@ fun Application.configureRouting(config: AppConfig) {
         leaderboardRoutes()
         playerStatsRoutes()
         slackCommandRoutes(config)
+        adminRoutes(config)
     }
 }
