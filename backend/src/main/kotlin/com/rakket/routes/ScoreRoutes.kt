@@ -1,6 +1,7 @@
 package com.rakket.routes
 
 import com.rakket.db.*
+import com.rakket.elo.EloCalculator
 import com.rakket.models.ScoreReportRequest
 import com.rakket.tournament.ScoreValidator
 import com.rakket.tournament.TournamentEngine
@@ -94,6 +95,9 @@ fun Route.scoreRoutes() {
                         }
                     }
                 }
+
+                // Update ELO ratings
+                EloCalculator.applyMatchResult(request.matchId, player1Id, player2Id, winnerId)
 
                 logger.info("Score reported for match #${request.matchId}: winner=$winnerId by reporter=$reporterId")
 
