@@ -1,8 +1,12 @@
 package com.rakket.slack
 
 import com.rakket.config.AppConfig
+import com.rakket.db.Tournaments
 import com.rakket.tournament.TournamentEngine
 import kotlinx.coroutines.*
+import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -43,11 +47,11 @@ class Scheduler(private val config: AppConfig, private val bot: SlackBot) {
         ) {
             // Find today's tournament in registration state and start it
             val today = LocalDate.now(ZoneId.of(config.timezone))
-            val tournamentId = org.jetbrains.exposed.sql.transactions.transaction {
-                com.rakket.db.Tournaments.select {
-                    (com.rakket.db.Tournaments.date eq today) and
-                        (com.rakket.db.Tournaments.status eq "registration")
-                }.firstOrNull()?.get(com.rakket.db.Tournaments.id)
+            val tournamentId = transaction {
+                Tournaments.selectAll().where {
+                    (Tournaments.date eq today) and
+                        (Tournaments.status eq "registration")
+                }.firstOrNull()?.get(Tournaments.id)
             } ?: return@scheduleWeekly
 
             val started = TournamentEngine.startTournament(tournamentId)

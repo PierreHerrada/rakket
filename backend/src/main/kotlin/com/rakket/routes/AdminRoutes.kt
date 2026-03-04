@@ -14,6 +14,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 import java.time.LocalDate
@@ -125,6 +126,9 @@ fun Route.adminRoutes(config: AppConfig) {
                             it[completedAt] = null
                             it[reportedBy] = null
                         }
+                    }
+                    else -> {
+                        logger.warn("Unknown dispute action: ${body.action}")
                     }
                 }
             }
